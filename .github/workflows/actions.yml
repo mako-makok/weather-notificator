@@ -1,0 +1,39 @@
+name: weather
+
+on:
+  schedule:
+    - cron: 0 9 * * *
+
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        required: true
+        description: log level
+        default: danger
+      tags:
+
+env:
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  WEATHER_MAP_API_KEY: ${{ secrets.WEATHER_MAP_API_KEY }}
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        if: steps.cache.outputs.cache-hit != 'true'
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install
+        run: |
+          yarn
+      - name: start
+        run: |
+          yarn start

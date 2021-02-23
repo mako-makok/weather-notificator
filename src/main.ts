@@ -37,7 +37,7 @@ async function main() {
     { type: 'divider' },
   ]
 
-  sendDM('Makoto', 'hoge', blocks)
+  sendDM('Makoto', '', blocks)
 }
 
 main()
