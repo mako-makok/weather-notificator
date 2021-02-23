@@ -1,6 +1,6 @@
 import { post } from './http'
 
-const SLACK_WEBHOOK_URL = process.env.slack_webhook_url as string
+const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL as string
 
 export const sendDM = async (slackId: string, text: string, blocks: any): Promise<void> => {
   const body = {
